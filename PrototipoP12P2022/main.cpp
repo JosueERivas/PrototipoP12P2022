@@ -18,67 +18,109 @@ int obtenerUsuario( const char * const );
 
 int main()
 {
+    //variables menu consultas
+    int sistema=1;
+
     //Autenticacion variables
     char nusuario[20];
     int contrasena;
     int acceso=1;
 
-    //Objeto usuario
-    Clsusuarios usuario;
-    //comprobando usuarios
-    fstream archivoUsuarios("registrousuarios.dat", ios::in | ios::out | ios::binary);
-    if ( !archivoUsuarios ){
-            cerr << "No se pudo abrir el archivo." << endl;
-            crearArchivoUsuarios();
-            cout <<  "Archivo creado satisfactoriamente, pruebe de nuevo";
-            exit ( 0 );
-        }
-    usuarioDefault(archivoUsuarios);
-
-    //Autenticacion
-    cout << "Ingrese su usuario" << endl;
-    cin >> nusuario;
-    string nombreUsuario;
-   // obtener el número de cuenta a buscar
-   int numeroUsuario = obtenerUsuario("");
-
-   // desplazar el apuntador de posición de archivo hasta el registro correcto en el archivo
-   archivoUsuarios.seekg(
-      ( numeroUsuario - 1 ) * sizeof( Clsusuarios ) );
-
-   // leer el primer registro del archivo
-   archivoUsuarios.read( reinterpret_cast< char * >( &usuario ),
-      sizeof( Clsusuarios ) );
-
-
-
-   if ( usuario.mobtenerIngreso() != 0 )
-    {
-        nombreUsuario=usuario.mobtenernombreUsuario();
-    }
-   else
-   {
-       cerr <<"No esta registrado." << endl;
-   }
-   if (nombreUsuario==nusuario)
-    {
-        cout<<"Acceso concedido";
-        getch();
-        acceso=0;
-    }
-    else
-    {
-        cout <<"Acceso denegado";
-        getch();
-    }
-
-    if(acceso==0)
+    while (sistema!=0)
     {
         system("cls");
-        cout << "Entraste";
-        getch();
-    }
+        //menu comsultas
+        cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+        cout << "Carne No. 9491-21-3133" << endl;
+        cout << "Menu Sistema" << endl;
+        cout << "1. Acceder al sistema" << endl;
+        cout << "2. Consultar deporte" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Ingrese opcion [1/2/0]: " << endl;
+        cin >> sistema;
+        switch (sistema)
+        {
+        case 1:
+            {
+                //Objeto usuario
+                Clsusuarios usuario;
+                //comprobando usuarios
+                fstream archivoUsuarios("registrousuarios.dat", ios::in | ios::out | ios::binary);
+                if ( !archivoUsuarios ){
+                        cerr << "No se pudo abrir el archivo." << endl;
+                        crearArchivoUsuarios();
+                        cout <<  "Archivo creado satisfactoriamente, pruebe de nuevo";
+                        exit ( 0 );
+                    }
+                usuarioDefault(archivoUsuarios);
 
+                //Autenticacion
+                cout << "Ingrese su usuario" << endl;
+                cin >> nusuario;
+                string nombreUsuario;
+               // obtener el número de cuenta a buscar
+               int numeroUsuario = obtenerUsuario("");
+
+               // desplazar el apuntador de posición de archivo hasta el registro correcto en el archivo
+               archivoUsuarios.seekg(
+                  ( numeroUsuario - 1 ) * sizeof( Clsusuarios ) );
+
+               // leer el primer registro del archivo
+               archivoUsuarios.read( reinterpret_cast< char * >( &usuario ),
+                  sizeof( Clsusuarios ) );
+
+
+
+               if ( usuario.mobtenerIngreso() != 0 )
+                {
+                    nombreUsuario=usuario.mobtenernombreUsuario();
+                }
+               else
+               {
+                   cerr <<"No esta registrado." << endl;
+               }
+               if (nombreUsuario==nusuario)
+                {
+                    cout<<"Acceso concedido";
+                    getch();
+                    acceso=0;
+                }
+                else
+                {
+                    cout <<"Acceso denegado";
+                    getch();
+                }
+
+                if(acceso==0)
+                {
+                    system("cls");
+                    cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+                    cout << "Carne No. 9491-21-3133" << endl;
+                    cout << "Menu Principal" << endl;
+                    cout << "1. Gestion de equipo" << endl;
+                    cout << "2. Gestion gerencial" << endl;
+                    cout << "3. Gestión administrativa" << endl;
+                    getch();
+                }
+            }
+            break;
+        case 2:
+            {
+                cout << "Usted esta en consulta" << endl;
+                getch();
+            }
+            break;
+        case 0:
+            break;
+        default:
+            {
+                cout << "Número Ingresado no válido" << endl;
+                getch();
+            }
+            break;
+        }
+    }
+    cout << "Fin";
     return 0;
 }
 
