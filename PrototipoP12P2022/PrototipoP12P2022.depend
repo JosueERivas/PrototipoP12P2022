@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1650563761 source:c:\users\user\onedrive\documentos\mariano\proyectosprograi\prototipop12p2022\prototipop12p2022\clsusuarios.cpp
+	"Clsusuarios.h"
+	<conio.h>
+	<iomanip>
+	<iostream>
+	<fstream>
+	<string>
+	<cstdlib>
+	<cstring>
+
+1650563649 c:\users\user\onedrive\documentos\mariano\proyectosprograi\prototipop12p2022\prototipop12p2022\clsusuarios.h
+	<string>
+	<iostream>
+
+1650566859 source:c:\users\user\onedrive\documentos\mariano\proyectosprograi\prototipop12p2022\prototipop12p2022\main.cpp
+	<string>
+	<conio.h>
+	<iostream>
+	<fstream>
+	<iomanip>
+	<cstdlib>
+	<Clsusuarios.h>
+
