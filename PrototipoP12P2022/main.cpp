@@ -27,6 +27,12 @@ int main()
     //variable menu equipo
     int equipo=1;
 
+    //variable crud equipos
+    int crudEquipo=1;
+
+    //variable crud jugadores
+    int crudJugador=1;
+
     //Autenticacion variables
     char nusuario[20];
     int contrasena;
@@ -35,6 +41,8 @@ int main()
     while (sistema!=0)
     {
         system("cls");
+        //variable menu general
+        general=1;
         //menu comsultas
         cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
         cout << "Carne No. 9491-21-3133" << endl;
@@ -101,6 +109,8 @@ int main()
                 {
                     while(general!=0)
                     {
+                        //variable menu equipo
+                        equipo=1;
                         system("cls");
                         cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
                         cout << "Carne No. 9491-21-3133" << endl;
@@ -117,14 +127,61 @@ int main()
                             {
                                 while(equipo!=0)
                                 {
+                                    system("cls");
+                                    //variable crud equipos
+                                    crudEquipo=1;
+                                    //variable crud jugadores
+                                    crudJugador=1;
                                     cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
                                     cout << "Carne No. 9491-21-3133" << endl;
-                                    cout << "Menu Equipo" << endl;
+                                    cout << "Menu gestion de equipo" << endl;
                                     cout << "1. Equipos" << endl;
                                     cout << "2. Jugadores" << endl;
                                     cout << "0. Regresar" << endl;
                                     cout << "Ingrese la opcion a seleccionar [1/2/0]: " << endl;
                                     cin >> equipo;
+                                    switch (equipo)
+                                    {
+                                    case 1:
+                                        {
+                                            while(crudEquipo!=0)
+                                            {
+                                                system("cls");
+                                                cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+                                                cout << "Carne No. 9491-21-3133" << endl;
+                                                cout << "Menu de equipos" << endl;
+                                                cout << "1. Equipos" << endl;
+                                                cout << "2. Jugadores" << endl;
+                                                cout << "0. Regresar" << endl;
+                                                cout << "Ingrese la opcion a seleccionar [1/2/0]: " << endl;
+                                                cin >> crudEquipo;
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            while(crudJugador!=0)
+                                            {
+                                                system("cls");
+                                                cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+                                                cout << "Carne No. 9491-21-3133" << endl;
+                                                cout << "Menu de Jugadores" << endl;
+                                                cout << "1. Equipos" << endl;
+                                                cout << "2. Jugadores" << endl;
+                                                cout << "0. Regresar" << endl;
+                                                cout << "Ingrese la opcion a seleccionar [1/2/0]: " << endl;
+                                                cin >> crudJugador;
+                                            }
+                                        }
+                                        break;
+                                    case 0:
+                                        break;
+                                    default:
+                                        {
+                                            cout << "valor ingresado no valido";
+                                        }
+                                        break;
+                                    }
                                 }
                             }
                             break;
