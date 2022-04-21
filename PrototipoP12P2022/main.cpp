@@ -21,6 +21,12 @@ int main()
     //variables menu consultas
     int sistema=1;
 
+    //variable menu general
+    int general=1;
+
+    //variable menu equipo
+    int equipo=1;
+
     //Autenticacion variables
     char nusuario[20];
     int contrasena;
@@ -93,14 +99,57 @@ int main()
 
                 if(acceso==0)
                 {
-                    system("cls");
-                    cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
-                    cout << "Carne No. 9491-21-3133" << endl;
-                    cout << "Menu Principal" << endl;
-                    cout << "1. Gestion de equipo" << endl;
-                    cout << "2. Gestion gerencial" << endl;
-                    cout << "3. Gestión administrativa" << endl;
-                    getch();
+                    while(general!=0)
+                    {
+                        system("cls");
+                        cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+                        cout << "Carne No. 9491-21-3133" << endl;
+                        cout << "Menu Principal" << endl;
+                        cout << "1. Gestion de equipo" << endl;
+                        cout << "2. Gestion gerencial" << endl;
+                        cout << "3. Gestión administrativa" << endl;
+                        cout << "0. Regresar" << endl;
+                        cout << "Ingrese la opcion a seleccionar [1/2/3/0]: " << endl;
+                        cin >> general;
+                        switch (general)
+                        {
+                        case 1:
+                            {
+                                while(equipo!=0)
+                                {
+                                    cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
+                                    cout << "Carne No. 9491-21-3133" << endl;
+                                    cout << "Menu Equipo" << endl;
+                                    cout << "1. Equipos" << endl;
+                                    cout << "2. Jugadores" << endl;
+                                    cout << "0. Regresar" << endl;
+                                    cout << "Ingrese la opcion a seleccionar [1/2/0]: " << endl;
+                                    cin >> equipo;
+                                }
+                            }
+                            break;
+                        case 2:
+                            {
+                                cout << "gestion gerencial" << endl;
+                                getch();
+                            }
+                            break;
+                        case 3:
+                            {
+                                cout << "gestion administrativa" << endl;
+                                getch();
+                            }
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            {
+                                cout << "Numero ingresado no valido" << endl;
+                                getch();
+                            }
+                            break;
+                        }
+                    }
                 }
             }
             break;
