@@ -8,6 +8,7 @@
 
 //Clases
 #include <Clsusuarios.h>
+#include <Clsequipos.h>
 
 using namespace std;
 
@@ -15,6 +16,9 @@ using namespace std;
 void crearArchivoUsuarios();
 void usuarioDefault( fstream& );
 int obtenerUsuario( const char * const );
+int obtenerEquipo( const char * const );
+void crearArchivoEquipos();
+void nuevoEquipo( fstream& );
 
 int main()
 {
@@ -147,14 +151,43 @@ int main()
                                             while(crudEquipo!=0)
                                             {
                                                 system("cls");
+                                                fstream archivoEquipos("registroequipos.dat", ios::in | ios::out | ios::binary);
+
+                                                // salir del programa si fstream no puede abrir el archivo
+                                                if ( !archivoEquipos) {
+                                                    cerr << "No se pudo abrir el archivo." << endl;
+                                                    crearArchivoEquipos();
+                                                    cout <<  "Archivo creado satisfactoriamente, pruebe de nuevo";
+                                                    exit ( 1 );
+                                                }
                                                 cout << "Nombre: Josue Ernesto Rivas De Leon" << endl;
                                                 cout << "Carne No. 9491-21-3133" << endl;
                                                 cout << "Menu de equipos" << endl;
-                                                cout << "1. Equipos" << endl;
-                                                cout << "2. Jugadores" << endl;
+                                                cout << "1. Creacion de equipos" << endl;
+                                                cout << "2. Eliminacion de equipos" << endl;
+                                                cout << "3. Modificacion de equipos" << endl;
+                                                cout << "4. Lectura de equipos" << endl;
                                                 cout << "0. Regresar" << endl;
-                                                cout << "Ingrese la opcion a seleccionar [1/2/0]: " << endl;
+                                                cout << "Ingrese la opcion a seleccionar [1/2/3/4/0]: " << endl;
                                                 cin >> crudEquipo;
+                                                switch (crudEquipo)
+                                                {
+                                                case 1:
+                                                    {
+                                                        nuevoEquipo(archivoEquipos);
+                                                        cout << "guardado con exito." << endl;
+                                                        getch();
+                                                    }
+                                                    break;
+                                                case 0 :
+                                                    break;
+                                                default:
+                                                    {
+                                                        cout << "Numero ingresado no valido";
+                                                        getch();
+                                                    }
+                                                    break;
+                                                }
                                             }
                                         }
                                         break;
@@ -253,10 +286,8 @@ void crearArchivoUsuarios()
 
 void usuarioDefault( fstream &insertarEnArchivo )
 {
-   // obtener el número de cuenta a crear
    int m_iingresoUsuario = 1;
 
-   // desplazar el apuntador de posición del archivo hasta el registro correcto en el archivo
    insertarEnArchivo.seekg(
       ( m_iingresoUsuario - 1 ) * sizeof( Clsusuarios ) );
 
@@ -268,7 +299,6 @@ void usuarioDefault( fstream &insertarEnArchivo )
 
       char m_snombreUsuario[ 20 ]="Josue";
 
-      // usar valores para llenar los valores de la clave
       usuarioprincipal.mestablecernombreUsuario( m_snombreUsuario );
       usuarioprincipal.mestablecerIngreso( m_iingresoUsuario );
 
@@ -288,7 +318,6 @@ int obtenerUsuario( const char * const indicador )
 {
    int m_iingresoUsuario;
 
-   // obtener el valor del número de cuenta
    do {
       cout << indicador << "Ingrese el password: ";
       cin >> m_iingresoUsuario;
@@ -296,5 +325,83 @@ int obtenerUsuario( const char * const indicador )
    } while ( m_iingresoUsuario < 100 && m_iingresoUsuario > 999 );
 
    return m_iingresoUsuario;
+
+}
+
+void crearArchivoEquipos()
+{
+    ofstream archivoEquipos("registroequipos.dat", ios::out | ios::binary);
+    if(!archivoEquipos)
+    {
+        cerr<<"No se abrio el archivo"<<endl;
+        exit(1);
+    }
+    Clsequipos equipoEnBlanco;
+    for(int i=0; i<100; i++)
+    {
+        archivoEquipos.write(reinterpret_cast<const char * > (&equipoEnBlanco), sizeof(Clsequipos));
+    }
+}
+
+void nuevoEquipo( fstream &insertarEnArchivo )
+{
+   int iequipo = obtenerEquipo( "Escriba el numero del equipo" );
+
+   insertarEnArchivo.seekg(
+      ( iequipo - 1 ) * sizeof( Clsequipos ) );
+
+   // leer el registro del archivo
+   Clsequipos equipo;
+   insertarEnArchivo.read( reinterpret_cast< char * >( &equipo ),
+      sizeof( Clsequipos ) );
+
+   // crear el registro, si éste no existe ya
+   if ( equipo.mobtenerIdEquipo() == 0 ) {
+
+      char nombreEquipo[ 20 ];
+      int idEnrenador;
+      int idDeporte;
+
+      cout << "Escriba el nombre: " << endl;
+      cin >> setw( 20 ) >> nombreEquipo;
+      cout << "Escriba el Id del entrenador: " << endl;
+      cin >> idEnrenador;
+      cout << "Escriba el Id del Deporte: " << endl;
+      cin >> idDeporte;
+
+      equipo.mestablecernombreEquipo( nombreEquipo );
+      equipo.mestablecerIdEquipo( iequipo );
+      equipo.mestablecerIdEquipo( idEnrenador );
+      equipo.mestablecerIdEquipo( idDeporte );
+
+      // desplazar el apuntador de posición de archivo hasta el registro correcto en el archivo
+      insertarEnArchivo.seekp( ( iequipo - 1 ) *
+         sizeof( Clsequipos ) );
+
+      // insertar el registro en el archivo
+      insertarEnArchivo.write(
+         reinterpret_cast< const char * >( &equipo ),
+         sizeof( Clsequipos ) );
+
+   } // fin de instrucción if
+
+   // mostrar error si la cuenta ya existe
+   else
+      cerr << "La cuenta #" << iequipo
+           << " ya contiene informacion." << endl;
+
+}
+
+int obtenerEquipo( const char * const indicador )
+{
+   int equipo;
+
+   do {
+      cout << indicador << " (1 - 100): ";
+      cin >> equipo;
+
+   } while ( equipo < 1 || equipo > 100 );
+
+   return equipo;
 
 }

@@ -34,6 +34,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Clsequipos.cpp" />
+		<Unit filename="Clsequipos.h" />
 		<Unit filename="Clsusuarios.cpp" />
 		<Unit filename="Clsusuarios.h" />
 		<Unit filename="main.cpp" />
